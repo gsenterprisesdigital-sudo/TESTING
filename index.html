@@ -68,6 +68,16 @@
 @media(max-width:940px){.enquiry-grid{grid-template-columns:1fr;gap:35px}.enquiry-side{position:static}.enquiry{padding:85px 0}.enquiry-sticker{display:none}}
 @media(max-width:580px){.enquiry{padding:72px 0}.enquiry h2{font-size:clamp(49px,11vw,70px)}.enquiry-fields{grid-template-columns:1fr}.enquiry-card{padding:23px;border-radius:19px}.enquiry-card-header{align-items:flex-start;flex-direction:column;gap:10px}.enquiry-submit,.enquiry-copy{width:100%}}
 @media(prefers-reduced-motion:reduce){.enquiry-sticker{animation:none}}
+
+/* Blogger auto-sync: cards populate live without changing index.html */
+.blogger-status{grid-column:1/-1;min-height:175px;display:flex;align-items:center;justify-content:center;padding:34px;border:1px solid #e9e7ed;border-radius:19px;background:#faf9fc;color:#5c5865;font-size:17px;text-align:center;line-height:1.65}
+.blogger-status a{color:#6627c9;text-decoration:underline;text-underline-offset:3px;font-weight:600}
+.blogger-status.is-error{background:#fbf9ff}
+.blog-card .blog-cover.has-image{padding:0;background:#f5f2fa;overflow:hidden}
+.blog-cover img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .6s ease}
+.blog-card:hover .blog-cover img{transform:scale(1.06)}
+.blog-card .blog-date{font-size:13px;color:#62606a;margin-top:12px}
+@media(max-width:830px){.blog-grid.has-feed .blog-card:last-child{display:flex}}
 </style>
 <script>document.documentElement.classList.add('js')</script>
 </head>
@@ -97,11 +107,7 @@
 </div><div class="services-more reveal"><a class="outline-btn" href="services.html">Explore all services <span aria-hidden="true">↗</span></a></div></div></section>
 <section class="section who" id="about"><div class="shell who-grid"><div class="reveal"><div class="eyebrow">Who we are</div><h2>Small details.<br/>Big thinking.</h2><div class="who-copy"><p><strong>GS Enterprises Digital</strong> is a Mumbai-based creative digital marketing agency founded by Harsh Upadhyay.</p><p>We bring creative thinking, strategy and practical execution together to build stronger brand experiences.</p></div><div class="pills"><span>Creative-first thinking</span><span>Strategy-led work</span><span>Collaborative approach</span></div><a class="outline-btn" href="about.html">Get to know us <span aria-hidden="true">↗</span></a></div><div aria-label="Animated GS creative monogram" class="who-illustration reveal"><span aria-hidden="true" class="big-g">GS</span><span aria-hidden="true" class="symbol">✳</span><span class="small-label">Ideas into impact.</span></div></div></section>
 <section class="section why"><div class="shell why-grid"><div class="reveal"><div class="eyebrow">Why GS?</div><h2>Less ordinary.<br/>More intentional.</h2><p class="why-copy">Every good partnership starts with listening, honest thinking and a clear understanding of what the business needs.</p><div class="why-list"><div class="why-item"><span aria-hidden="true" class="point">✦</span><div><h3>Creative with a reason</h3><p>Strong visual ideas connected to actual goals.</p></div></div><div class="why-item"><span aria-hidden="true" class="point">◎</span><div><h3>Clarity before campaigns</h3><p>Direction, messaging and purpose come first.</p></div></div><div class="why-item"><span aria-hidden="true" class="point">↗</span><div><h3>Built to keep learning</h3><p>Test, observe, improve—and make the next move smarter.</p></div></div></div></div><div aria-label="GS creative emblem" class="why-side reveal"><div class="ring"><strong>GS</strong></div><div class="orbit-word">THINK • CREATE • GROW</div></div></div></section>
-<section class="section blogs"><div class="shell"><div class="section-head reveal"><div><div class="eyebrow">Ideas &amp; insights</div><h2 class="section-title">Good thinking.<br/>Worth sharing.</h2></div><a class="outline-btn" href="https://gsenterprisesdigital.blogspot.com/" rel="noopener noreferrer" target="_blank">Visit our blog ↗</a></div><div class="blog-grid">
-<a class="blog-card reveal" href="https://gsenterprisesdigital.blogspot.com/" rel="noopener noreferrer" target="_blank"><div aria-hidden="true" class="blog-cover">Aa</div><div class="blog-body"><span class="blog-category">Brand Strategy</span><h3>Clarity changes how a brand connects.</h3><span class="read">Explore articles ↗</span></div></a>
-<a class="blog-card reveal" href="https://gsenterprisesdigital.blogspot.com/" rel="noopener noreferrer" target="_blank"><div aria-hidden="true" class="blog-cover">#</div><div class="blog-body"><span class="blog-category">Social Media</span><h3>Make the scroll worth stopping for.</h3><span class="read">Explore articles ↗</span></div></a>
-<a class="blog-card reveal" href="https://gsenterprisesdigital.blogspot.com/" rel="noopener noreferrer" target="_blank"><div aria-hidden="true" class="blog-cover">↗</div><div class="blog-body"><span class="blog-category">Digital Growth</span><h3>Better questions lead to better marketing.</h3><span class="read">Explore articles ↗</span></div></a>
-</div></div></section>
+<section class="section blogs" id="latest-insights"><div class="shell"><div class="section-head reveal"><div><div class="eyebrow">Ideas &amp; insights</div><h2 class="section-title">Good thinking.<br/>Worth sharing.</h2></div><a class="outline-btn" href="https://gsenterprisesdigital.blogspot.com/" rel="noopener noreferrer" target="_blank">Visit our blog ↗</a></div><div class="blog-grid" id="bloggerGrid"><div aria-live="polite" class="blogger-status" id="bloggerStatus" role="status">Loading the latest articles from GS Enterprises Digital Blogger…</div></div><noscript><a href="https://gsenterprisesdigital.blogspot.com/" rel="noopener noreferrer" target="_blank">Read the latest articles on GS Enterprises Digital Blogger ↗</a></noscript></div></section>
 <section class="deck-strip"><div class="shell deck-strip-inner reveal"><div><div class="eyebrow">Explore GS</div><h2>Want the bigger picture?</h2><p>Explore our brand and creative material on Google Drive.</p></div><a class="deck" href="https://drive.google.com/drive/folders/18ghTHgUfqfgB1hrkVBEHju1pK_6SHoc3" rel="noopener noreferrer" target="_blank">View our deck ↗</a></div></section>
 <section aria-labelledby="enquiry-title" class="enquiry" id="enquiry"><div class="shell enquiry-grid">
 <div class="enquiry-side reveal"><span class="enquiry-kicker">Have a project in mind?</span><h2 id="enquiry-title">Let's make it <em>happen.</em></h2><p>Tell us a little about your brand, challenge or next big idea. We'll make it easy to start the conversation.</p><a class="enquiry-aside-link" href="mailto:gsenterprises.digital@gmail.com?subject=Project%20Enquiry%20-%20GS%20Enterprises%20Digital">gsenterprises.digital@gmail.com ↗</a><div aria-hidden="true" class="enquiry-sticker">✳</div></div>
@@ -140,4 +146,135 @@ function compose(){const x=content();const subject='New Project Enquiry - '+x.se
 form.addEventListener('submit',e=>{e.preventDefault();if(!form.reportValidity())return;const {subject,body}=compose();feedback.textContent='Your email app should open now. Please click Send there to complete your enquiry.';window.location.href='mailto:gsenterprises.digital@gmail.com?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body)});
 document.getElementById('copyEnquiry').addEventListener('click',async()=>{if(!form.reportValidity())return;const {subject,body}=compose();const value='To: gsenterprises.digital@gmail.com\nSubject: '+subject+'\n\n'+body;try{if(navigator.clipboard&&window.isSecureContext){await navigator.clipboard.writeText(value)}else{const ta=document.createElement('textarea');ta.value=value;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();const ok=document.execCommand('copy');ta.remove();if(!ok)throw new Error('copy failed')}feedback.textContent='Copied! Paste into Gmail or your preferred email app and send it to our address.'}catch(e){feedback.textContent='Copy unavailable in this browser. Select and copy your details manually, then email us.'}});
 })();
-</script></body></html>
+</script><script>/* GS Blogger feed integration — loads public posts when page opens. */
+(function () {
+  'use strict';
+  const BLOG_URL = 'https://gsenterprisesdigital.blogspot.com/';
+  const grid = document.getElementById('bloggerGrid');
+  if (!grid) return;
+
+  const safeUrl = (raw) => {
+    try {
+      const url = new URL(raw);
+      return url.protocol === 'https:' || url.protocol === 'http:' ? url.href : null;
+    } catch (_) { return null; }
+  };
+  const status = (message) => {
+    grid.replaceChildren();
+    const panel = document.createElement('div');
+    panel.className = 'blogger-status is-error';
+    const note = document.createElement('span');
+    note.textContent = message + ' ';
+    const link = document.createElement('a');
+    link.href = BLOG_URL;
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
+    link.textContent = 'Visit our Blogger ↗';
+    panel.append(note, link);
+    grid.appendChild(panel);
+  };
+  const getLink = (entry) => {
+    const alternate = (entry.link || []).find((link) => link.rel === 'alternate' && link.type === 'text/html');
+    return alternate && safeUrl(alternate.href);
+  };
+  const getImage = (entry) => {
+    const thumb = entry['media$thumbnail'];
+    if (thumb && thumb.url && safeUrl(thumb.url)) return safeUrl(thumb.url);
+    const raw = (entry.content && entry.content.$t) || (entry.summary && entry.summary.$t) || '';
+    if (!raw) return null;
+    const doc = new DOMParser().parseFromString(raw, 'text/html');
+    const img = doc.querySelector('img[src]');
+    return img ? safeUrl(img.getAttribute('src')) : null;
+  };
+  const makeCard = (entry, index) => {
+    const link = getLink(entry);
+    if (!link) return null;
+    const card = document.createElement('a');
+    card.className = 'blog-card';
+    card.href = link;
+    card.target = '_blank';
+    card.rel = 'noopener noreferrer';
+    card.setAttribute('aria-label', 'Read article: ' + (entry.title?.$t || 'Blog post'));
+
+    const cover = document.createElement('div');
+    cover.className = 'blog-cover';
+    const image = getImage(entry);
+    if (image) {
+      cover.classList.add('has-image');
+      const img = document.createElement('img');
+      img.src = image;
+      img.alt = '';
+      img.loading = 'lazy';
+      img.decoding = 'async';
+      img.referrerPolicy = 'no-referrer';
+      img.addEventListener('error', () => {
+        cover.classList.remove('has-image');
+        img.remove();
+        cover.textContent = ['Aa', '#', '↗'][index % 3];
+      }, { once: true });
+      cover.appendChild(img);
+    } else {
+      cover.textContent = ['Aa', '#', '↗'][index % 3];
+    }
+
+    const body = document.createElement('div');
+    body.className = 'blog-body';
+    const label = document.createElement('span');
+    label.className = 'blog-category';
+    label.textContent = entry.category?.[0]?.term || 'Latest Insights';
+    const heading = document.createElement('h3');
+    heading.textContent = entry.title?.$t || 'GS Enterprises Digital Article';
+    const date = document.createElement('time');
+    date.className = 'blog-date';
+    const dateValue = entry.published?.$t;
+    if (dateValue) {
+      const parsed = new Date(dateValue);
+      if (!Number.isNaN(parsed.getTime())) {
+        date.dateTime = parsed.toISOString().slice(0, 10);
+        date.textContent = parsed.toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' });
+      }
+    }
+    const read = document.createElement('span');
+    read.className = 'read';
+    read.textContent = 'Read article ↗';
+    body.append(label, heading);
+    if (date.textContent) body.appendChild(date);
+    body.appendChild(read);
+    card.append(cover, body);
+    return card;
+  };
+
+  let finished = false;
+  const script = document.createElement('script');
+  const callbackName = 'gsBlogFeed_' + Math.random().toString(36).slice(2);
+  const cleanup = () => {
+    script.remove();
+    try { delete window[callbackName]; } catch (_) { window[callbackName] = undefined; }
+  };
+  const fail = () => {
+    if (finished) return;
+    finished = true;
+    cleanup();
+    status('Latest posts could not be loaded right now.');
+  };
+  const timeout = setTimeout(fail, 12000);
+  window[callbackName] = (result) => {
+    if (finished) return;
+    finished = true;
+    clearTimeout(timeout);
+    const posts = (result && result.feed && result.feed.entry) || [];
+    const cards = posts.map(makeCard).filter(Boolean).slice(0, 3);
+    grid.replaceChildren();
+    if (cards.length) {
+      grid.classList.add('has-feed');
+      grid.append(...cards);
+    } else {
+      status('No published blog posts are available yet.');
+    }
+    cleanup();
+  };
+  script.onerror = () => { clearTimeout(timeout); fail(); };
+  script.async = true;
+  script.src = BLOG_URL + 'feeds/posts/default?alt=json-in-script&max-results=3&callback=' + encodeURIComponent(callbackName) + '&_=' + Date.now();
+  document.head.appendChild(script);
+})();</script></body></html>
