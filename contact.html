@@ -275,8 +275,8 @@ body {font-family:'Outfit',Arial,sans-serif}
 <div class="ct-field full"><label for="ct-subject">Subject <span class="req">*</span></label><input id="ct-subject" maxlength="160" name="subject" placeholder="What's on your mind?" required=""/></div>
 <div class="ct-field full"><label for="ct-message">Your Message <span class="req">*</span></label><textarea id="ct-message" maxlength="6000" name="message" placeholder="Tell us about your idea, goals, or timeline…" required=""></textarea></div>
 </div>
-<div class="ct-form-actions"><button class="ct-send" type="submit">Open Email Draft <span aria-hidden="true">↗</span></button><button class="ct-copy" id="ctCopy" type="button">Copy Enquiry</button></div>
-<p class="ct-note">Submitting opens your email app with the details filled in. Your message is <strong>not sent automatically</strong> — press Send in your email app. We don't store your form details on this site.</p>
+<div class="ct-form-actions"><button class="ct-send" type="submit">Send Enquiry <span aria-hidden="true">↗</span></button><button class="ct-copy" id="ctCopy" type="button">Copy Enquiry</button></div>
+<p class="ct-note">Your enquiry will be submitted to GS Enterprises Digital through Google Apps Script and recorded in a private Google Sheet. Please avoid submitting sensitive information.</p>
 <p aria-live="polite" class="ct-feedback" id="ctFeedback" role="status"></p>
 </form>
 </div>
@@ -323,8 +323,45 @@ const form=document.getElementById('gsContactForm'),feedback=document.getElement
 function data(){return Object.fromEntries([...new FormData(form).entries()].map(([key,val])=>[key,String(val).trim()]))}
 function format(){const d=data();const subject='GS Enterprises Enquiry: '+d.subject;const body=['Hello GS Enterprises Digital,','','I would like to discuss a project.','','Full Name: '+d.name,'Email: '+d.email,'Phone: '+(d.phone||'Not provided'),'Service: '+d.service,'Subject: '+d.subject,'','Project details:',d.message,'','Thank you.'].join('\n');return {subject,body}}
 function validate(){if(!form.reportValidity()){feedback.textContent='Please complete the required fields first.';return false}return true}
-form.addEventListener('submit',event=>{event.preventDefault();if(!validate())return;const d=format();feedback.textContent='Your email app should open. Click Send there to deliver your message.';window.location.href='mailto:gsenterprises.digital@gmail.com?subject='+encodeURIComponent(d.subject)+'&body='+encodeURIComponent(d.body)});
-document.getElementById('ctCopy').addEventListener('click',async()=>{if(!validate())return;const d=format();const value='To: gsenterprises.digital@gmail.com\nSubject: '+d.subject+'\n\n'+d.body;try{if(navigator.clipboard && window.isSecureContext){await navigator.clipboard.writeText(value)}else{const t=document.createElement('textarea');t.value=value;t.style.position='fixed';t.style.opacity='0';document.body.appendChild(t);t.select();if(!document.execCommand('copy'))throw new Error('Clipboard unavailable');t.remove()}feedback.textContent='Enquiry copied. Paste it into your email app and send.'}catch(err){feedback.textContent='Copy unavailable. You can use Open Email Draft instead.'}});
+const appsScriptUrl='https://script.google.com/macros/s/AKfycbzEJLFgy61M0ChdwKrMBUHpXWAmx2T-auKwlMpQA9BUPNFeAmNAEtQldv2_t54Pep5j/exec';
+let submitting=false;
+form.addEventListener('submit',async event=>{
+  event.preventDefault();
+  if(submitting || !validate())return;
+  submitting=true;
+  const submitButton=form.querySelector('button[type="submit"]');
+  submitButton.disabled=true;
+  const originalLabel=submitButton.innerHTML;
+  submitButton.textContent='Submitting…';
+  feedback.textContent='Submitting your enquiry…';
+  try {
+    const fields=new URLSearchParams();
+    const d=data();
+    fields.set('fullName',d.name);
+    fields.set('email',d.email);
+    fields.set('phone',d.phone||'');
+    fields.set('service',d.service||'');
+    fields.set('subject',d.subject||'');
+    fields.set('message',d.message||'');
+    // Apps Script Web Apps do not expose a readable cross-origin response to this static page.
+    await fetch(appsScriptUrl,{
+      method:'POST',
+      mode:'no-cors',
+      body:fields,
+      redirect:'follow',
+      keepalive:false
+    });
+    feedback.textContent='Enquiry submitted. Please check your email or Google Sheet to confirm it was received.';
+    // Keep entered values, since an opaque response cannot confirm the Sheet write.
+  } catch(err) {
+    feedback.textContent='Could not submit. Please try again or email gsenterprises.digital@gmail.com directly.';
+  } finally {
+    submitting=false;
+    submitButton.disabled=false;
+    submitButton.innerHTML=originalLabel;
+  }
+});
+document.getElementById('ctCopy').addEventListener('click',async()=>{if(!validate())return;const d=format();const value='To: gsenterprises.digital@gmail.com\nSubject: '+d.subject+'\n\n'+d.body;try{if(navigator.clipboard && window.isSecureContext){await navigator.clipboard.writeText(value)}else{const t=document.createElement('textarea');t.value=value;t.style.position='fixed';t.style.opacity='0';document.body.appendChild(t);t.select();if(!document.execCommand('copy'))throw new Error('Clipboard unavailable');t.remove()}feedback.textContent='Enquiry copied. Paste it into your email app and send.'}catch(err){feedback.textContent='Copy unavailable. Please use Send Enquiry instead.'}});
 })();
 </script>
 </body>
