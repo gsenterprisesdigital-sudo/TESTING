@@ -2,6 +2,15 @@
 
 <html lang="en">
 <head>
+<!-- Google Analytics 4 — GS Enterprises Digital -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-5CF73ZM6JW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){ dataLayer.push(arguments); }
+  gtag('js', new Date());
+  gtag('config', 'G-5CF73ZM6JW');
+</script>
+<!-- End Google Analytics 4 -->
 <meta charset="utf-8"/>
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
 <meta content="#f7f5ee" name="theme-color"/>
@@ -621,5 +630,45 @@ document.getElementById('year').textContent=new Date().getFullYear();
   doc.body.appendChild(script);
 })();
 </script>
+
+<!-- Successful embedded Tally enquiries: send a GA4 generate_lead event (no form answers/PII). -->
+<script>
+(function(){
+  'use strict';
+  var tallyFrame = document.querySelector('iframe[data-tally-src*="/embed/je6gPQ"]');
+  if (!tallyFrame) return;
+  var lastSubmission = '';
+  var lastSubmissionTime = 0;
+
+  window.addEventListener('message', function(event){
+    // Accept postMessage only from the actual embedded Tally iframe.
+    if (event.origin !== 'https://tally.so' || event.source !== tallyFrame.contentWindow) return;
+    var data = event.data;
+    if (typeof data === 'string') {
+      try { data = JSON.parse(data); } catch (_) { return; }
+    }
+    if (!data || typeof data !== 'object' || data.event !== 'Tally.FormSubmitted') return;
+    var payload = data.payload && typeof data.payload === 'object' ? data.payload : data;
+    var formId = payload.formId || data.formId;
+    if (formId && formId !== 'je6gPQ') return;
+
+    // Prevent duplicate conversion hits for repeated iframe messages.
+    var submissionId = String(payload.respondentId || payload.id || 'je6gPQ');
+    var now = Date.now();
+    if (submissionId === lastSubmission && now - lastSubmissionTime < 5000) return;
+    lastSubmission = submissionId;
+    lastSubmissionTime = now;
+
+    if (typeof window.gtag === 'function') {
+      window.gtag('event', 'generate_lead', {
+        form_id: 'je6gPQ',
+        form_source: 'contact_page',
+        method: 'tally_embed'
+      });
+    }
+  });
+})();
+</script>
+<!-- End Tally enquiry analytics -->
 </body>
 </html>
