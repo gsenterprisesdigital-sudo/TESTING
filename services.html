@@ -196,4 +196,270 @@ let ticking=false;function updateScroll(){const max=document.documentElement.scr
 const elements=document.querySelectorAll('.reveal');if('IntersectionObserver'in window&&!matchMedia('(prefers-reduced-motion: reduce)').matches){const io=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target)}})},{threshold:.08,rootMargin:'0px 0px -20px 0px'});elements.forEach(e=>io.observe(e))}else{elements.forEach(e=>e.classList.add('visible'))}
 })();
 </script>
-<script>(()=>{const links=[...document.querySelectorAll('.cs-side-nav a[data-for]')];const chapters=[...document.querySelectorAll('.cs-service')];if(!links.length)return;const set=id=>{links.forEach(a=>a.setAttribute('aria-current',String(a.dataset.for===id)));};const obs=new IntersectionObserver(entries=>{const found=entries.filter(e=>e.isIntersecting).sort((a,b)=>a.boundingClientRect.top-b.boundingClientRect.top);if(found.length)set(found[0].target.id);},{rootMargin:'-21% 0px -57% 0px',threshold:0});chapters.forEach(s=>obs.observe(s));links.forEach(a=>a.addEventListener('click',()=>set(a.dataset.for)));})();</script></body></html>
+<script>(()=>{const links=[...document.querySelectorAll('.cs-side-nav a[data-for]')];const chapters=[...document.querySelectorAll('.cs-service')];if(!links.length)return;const set=id=>{links.forEach(a=>a.setAttribute('aria-current',String(a.dataset.for===id)));};const obs=new IntersectionObserver(entries=>{const found=entries.filter(e=>e.isIntersecting).sort((a,b)=>a.boundingClientRect.top-b.boundingClientRect.top);if(found.length)set(found[0].target.id);},{rootMargin:'-21% 0px -57% 0px',threshold:0});chapters.forEach(s=>obs.observe(s));links.forEach(a=>a.addEventListener('click',()=>set(a.dataset.for)));})();</script><script>
+
+/*
+ * GS Enterprises Digital — Services mega menu
+ * Integrated directly into services.html so this page works as a single file.
+ * Uses the eight original SVG illustrations on this page; no extra image files.
+ * No libraries required; works with both .header and .site-header layouts.
+ */
+(() => {
+  'use strict';
+
+  const SERVICES = [
+    { name: 'Social Media Marketing', id: 'social-media-marketing', icon: '♡', tint: '#fff0f7' },
+    { name: 'Performance Marketing', id: 'performance-marketing', icon: '↗', tint: '#e9f8ed' },
+    { name: 'Creative Content Production', id: 'creative-content-production', icon: '▶', tint: '#fff4d9' },
+    { name: 'Brand Strategy', id: 'brand-strategy', icon: '✳', tint: '#f1edff' },
+    { name: 'Influencer & Campaign Marketing', id: 'influencer-campaign-marketing', icon: '✦', tint: '#fff1e7' },
+    { name: 'Website Design & Development', id: 'website-design-development', icon: '</>', tint: '#eae7ff' },
+    { name: 'SEO & Organic Growth', id: 'seo-organic-growth', icon: '⌕', tint: '#e8f6ff' },
+    { name: 'UI/UX & Digital Experiences', id: 'ui-ux-digital-experiences', icon: '◈', tint: '#f1ebff' },
+  ];
+
+  const CSS = `
+    .gs-menu-trigger {
+      display:inline-flex!important; align-items:center; justify-content:center;
+      white-space:nowrap; padding:10px 20px!important; border-radius:999px;
+      transition:background .18s ease,color .18s ease!important;
+    }
+    .gs-menu-trigger::after { display:none!important; }
+    .gs-menu-trigger:hover, .gs-menu-trigger[aria-expanded="true"] {
+      background:#0c0b10!important; color:#fff!important;
+    }
+    .gs-menu-panel[hidden] { display:none!important; }
+    .gs-menu-panel {
+      position:absolute; left:50%; top:calc(100% - 1px); z-index:100;
+      width:min(950px,calc(100vw - 36px)); transform:translateX(-50%);
+      background:#fff; border:1px solid #eeeaf2; border-top:1px solid #f7f4fb;
+      border-radius:0 0 15px 15px; padding:14px;
+      box-shadow:0 23px 50px rgba(36,24,57,.15); color:#17121d;
+      font-family:'Outfit','DM Sans',Arial,sans-serif;
+    }
+    .gs-menu-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:13px 10px; }
+    .gs-menu-card {
+      display:flex; flex-direction:column; text-align:center; align-items:stretch;
+      min-width:0; gap:7px; color:#28232d; text-decoration:none!important;
+      border-radius:13px; padding:0 0 4px;
+      transition:transform .2s ease;
+    }
+    .gs-menu-card:hover { transform:translateY(-3px); }
+    .gs-menu-card:focus-visible { outline:3px solid #7028ea; outline-offset:3px; }
+    .gs-menu-thumb {
+      width:100%; height:120px; display:flex; justify-content:center; align-items:center;
+      overflow:hidden; border:1px solid #e9e6ed; border-radius:11px;
+      background:linear-gradient(160deg,#fff 50%,var(--gs-tone));
+      box-shadow:0 5px 13px rgba(13,12,24,.045);
+      transition:border-color .2s ease,box-shadow .2s ease;
+    }
+    .gs-menu-card:hover .gs-menu-thumb { border-color:#bb9af2; box-shadow:0 8px 20px #7028ea20; }
+    .gs-menu-thumb svg { display:block; width:100%; height:100%; max-height:118px; }
+    .gs-menu-fallback {
+      display:grid; place-items:center; width:75px; height:75px; border-radius:25px;
+      background:var(--gs-tone); color:#5231a7; font-size:40px; font-weight:800;
+    }
+    .gs-menu-caption {
+      display:block; font-size:12px; line-height:1.4; font-weight:500;
+      letter-spacing:0; overflow-wrap:anywhere;
+    }
+    .gs-menu-all { display:none; }
+    @media (max-width:830px) {
+      .gs-menu-panel {
+        left:0; right:0; top:100%; transform:none; width:100%; max-height:65vh;
+        overflow:auto; overscroll-behavior:contain; border-radius:0 0 16px 16px;
+        box-shadow:0 18px 40px #0002; padding:15px 5%;
+      }
+      .gs-menu-grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:15px; }
+      .gs-menu-thumb { height:100px; }
+      .gs-menu-thumb svg { max-height:100px; }
+      .gs-menu-fallback { width:60px; height:60px; font-size:32px; }
+      .gs-menu-caption { font-size:13px; }
+      .gs-menu-all {
+        display:block; text-align:center; color:#6223c2; font-weight:700;
+        font-size:14px; padding:15px 4px 2px; text-decoration:underline!important;
+      }
+      .mobile-drawer .gs-menu-trigger { justify-content:flex-start; width:100%; }
+    }
+    @media (max-width:410px) {
+      .gs-menu-panel { padding:12px 4%; }
+      .gs-menu-grid { gap:12px 8px; }
+      .gs-menu-thumb { height:86px; }
+      .gs-menu-thumb svg { max-height:86px; }
+      .gs-menu-caption { font-size:12px; }
+    }
+    @media (prefers-reduced-motion:reduce) {
+      .gs-menu-card, .gs-menu-trigger, .gs-menu-thumb { transition:none!important; }
+      .gs-menu-card:hover { transform:none; }
+    }
+  `;
+
+  function start() {
+    const header = document.querySelector('header.header, header.site-header');
+    if (!header || document.getElementById('gsServicesMegaMenu')) return;
+
+    const anchors = Array.from(header.querySelectorAll('nav a[href]'));
+    const triggers = anchors.filter(a => {
+      const href = a.getAttribute('href') || '';
+      return /(?:^|\/)services\.html(?:[?#].*)?$/.test(href) &&
+        a.textContent.trim().toLowerCase() === 'services';
+    });
+    if (!triggers.length) return;
+
+    const style = document.createElement('style');
+    style.id = 'gsServicesMegaMenuStyles';
+    style.textContent = CSS;
+    document.head.appendChild(style);
+
+    const panel = document.createElement('section');
+    panel.id = 'gsServicesMegaMenu';
+    panel.className = 'gs-menu-panel';
+    panel.hidden = true;
+    panel.setAttribute('aria-label', 'Explore our eight services');
+
+    const grid = document.createElement('div');
+    grid.className = 'gs-menu-grid';
+
+    SERVICES.forEach(service => {
+      const card = document.createElement('a');
+      card.href = 'services.html#' + service.id;
+      card.className = 'gs-menu-card';
+      card.setAttribute('aria-label', 'Explore ' + service.name);
+
+      const thumb = document.createElement('span');
+      thumb.className = 'gs-menu-thumb';
+      thumb.style.setProperty('--gs-tone', service.tint);
+      thumb.dataset.serviceId = service.id;
+
+      const fallback = document.createElement('span');
+      fallback.className = 'gs-menu-fallback';
+      fallback.textContent = service.icon;
+      fallback.setAttribute('aria-hidden', 'true');
+      thumb.appendChild(fallback);
+
+      const caption = document.createElement('span');
+      caption.className = 'gs-menu-caption';
+      caption.textContent = service.name;
+
+      card.append(thumb, caption);
+      grid.appendChild(card);
+    });
+    panel.appendChild(grid);
+
+    const all = document.createElement('a');
+    all.className = 'gs-menu-all';
+    all.href = 'services.html#all-services';
+    all.textContent = 'View all services →';
+    panel.appendChild(all);
+    header.appendChild(panel);
+
+    let open = false;
+    let illustrationRequest = null;
+    const desktopHover = () => window.matchMedia('(hover:hover) and (min-width:831px)').matches;
+
+    const setOpen = value => {
+      open = value;
+      panel.hidden = !value;
+      triggers.forEach(a => a.setAttribute('aria-expanded', String(value)));
+      if (value) loadIllustrations();
+    };
+
+    triggers.forEach(a => {
+      a.classList.add('gs-menu-trigger');
+      a.setAttribute('aria-haspopup', 'true');
+      a.setAttribute('aria-controls', panel.id);
+      a.setAttribute('aria-expanded', 'false');
+      a.addEventListener('pointerenter', () => { if (desktopHover()) setOpen(true); });
+      a.addEventListener('click', event => {
+        event.preventDefault();
+        setOpen(!open);
+      });
+      a.addEventListener('keydown', event => {
+        if (event.key === 'ArrowDown' || event.key === ' ') {
+          event.preventDefault();
+          setOpen(true);
+          grid.querySelector('a')?.focus();
+        }
+      });
+    });
+
+    header.querySelectorAll('nav a:not(.gs-menu-trigger)').forEach(link => {
+      link.addEventListener('pointerenter', () => { if (desktopHover() && open) setOpen(false); });
+    });
+    header.addEventListener('pointerleave', () => { if (desktopHover()) setOpen(false); });
+    panel.addEventListener('click', event => {
+      if (event.target.closest('a')) setOpen(false);
+    });
+    document.addEventListener('pointerdown', event => {
+      if (open && !header.contains(event.target)) setOpen(false);
+    });
+    document.addEventListener('focusin', event => {
+      if (open && !header.contains(event.target)) setOpen(false);
+    });
+    document.addEventListener('keydown', event => {
+      if (open && event.key === 'Escape') {
+        setOpen(false);
+        triggers.find(a => a.offsetParent !== null)?.focus();
+      }
+    });
+    header.querySelector('#menu')?.addEventListener('click', () => { if (open) setOpen(false); });
+    window.addEventListener('resize', () => { if (open) setOpen(false); });
+
+    // Give cloned SVGs their own IDs so gradients/filters don't conflict with
+    // originals on the Services page.
+    function isolatedSvg(original, uniqueId) {
+      const svg = original.cloneNode(true);
+      const prefix = 'gsmega-' + uniqueId + '-';
+      for (const element of [svg, ...svg.querySelectorAll('*')]) {
+        const oldId = element.getAttribute('id');
+        if (oldId) element.setAttribute('id', prefix + oldId);
+        for (const attr of Array.from(element.attributes)) {
+          if (attr.name === 'id') continue;
+          let val = attr.value.replace(/url\(#([^\)]+)\)/g, (_, id) => `url(#${prefix}${id})`);
+          if ((attr.name === 'href' || attr.name === 'xlink:href') && val.startsWith('#')) {
+            val = '#' + prefix + val.slice(1);
+          }
+          if (val !== attr.value) element.setAttribute(attr.name, val);
+        }
+      }
+      svg.removeAttribute('role');
+      svg.setAttribute('aria-hidden', 'true');
+      svg.setAttribute('focusable', 'false');
+      if (!svg.getAttribute('viewBox')) svg.setAttribute('viewBox', '0 0 620 390');
+      return svg;
+    }
+
+    function useIllustrations(doc) {
+      for (const service of SERVICES) {
+        const section = doc.getElementById(service.id);
+        const art = section?.querySelector('.cs-artwork svg');
+        const thumb = grid.querySelector(`[data-service-id="${service.id}"]`);
+        if (art && thumb) thumb.replaceChildren(isolatedSvg(art, service.id));
+      }
+    }
+
+    function loadIllustrations() {
+      if (illustrationRequest) return;
+      if (document.querySelector('.cs-service')) {
+        useIllustrations(document);
+        illustrationRequest = Promise.resolve();
+        return;
+      }
+      // Load only when a visitor opens the menu; fallbacks remain visible offline.
+      illustrationRequest = fetch('services.html', { credentials: 'same-origin' })
+        .then(response => {
+          if (!response.ok) throw new Error('Services page unavailable');
+          return response.text();
+        })
+        .then(html => useIllustrations(new DOMParser().parseFromString(html, 'text/html')))
+        .catch(() => { /* Original fallback icons remain usable. */ });
+    }
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
+})();
+
+
+</script>
+</body></html>
